@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App JSON Store</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">APP-JSON</p>
+          <h1>Kho JSON và Mảng JSON</h1>
+          <p class="hero-copy">
+            Quản lý các nội dung JSON có tên, tìm kiếm nhanh, sao chép, sửa, xoá
+            và xuất hoặc nhập lại dữ liệu.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <button id="newItemBtn" class="btn btn-primary" type="button">Thêm mới</button>
+          <button id="exportBtn" class="btn btn-secondary" type="button">Xuất JSON</button>
+          <button id="importBtn" class="btn btn-secondary" type="button">Nhập JSON</button>
+          <input id="importInput" type="file" accept=".json,application/json" hidden />
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel panel-table">
+          <div class="panel-head">
+            <div>
+              <h2>Danh sách đã lưu</h2>
+              <p id="listMeta" class="muted">Đang tải dữ liệu...</p>
+            </div>
+            <div class="search-box">
+              <input
+                id="searchInput"
+                type="search"
+                placeholder="Tìm theo tên..."
+                autocomplete="off"
+              />
+              <button id="clearSearchBtn" class="btn btn-ghost" type="button">Xoá lọc</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên</th>
+                  <th>Loại</th>
+                  <th>Nội dung</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="panel panel-editor">
+          <div class="panel-head panel-head-stack">
+            <div>
+              <h2>Chi tiết</h2>
+              <p class="muted">Lưu dưới dạng JSON object hoặc mảng JSON.</p>
+            </div>
+            <div id="modeBadge" class="mode-badge">Đang tạo mới</div>
+          </div>
+
+          <form id="itemForm" class="editor-form">
+            <label class="field">
+              <span>Tên</span>
+              <input id="nameInput" type="text" placeholder="Ví dụ: cau-hinh-api" />
+            </label>
+
+            <fieldset class="field">
+              <legend>Loại nội dung</legend>
+              <div class="type-switch">
+                <label class="type-option">
+                  <input type="radio" name="contentType" value="json" checked />
+                  <span>JSON</span>
+                </label>
+                <label class="type-option">
+                  <input type="radio" name="contentType" value="list" />
+                  <span>Mảng JSON</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label class="field field-grow">
+              <div class="field-inline">
+                <span>Nội dung</span>
+                <small id="contentHint" class="muted"
+                  >Nhập JSON object, ví dụ: {"id": 1, "name": "abc"}</small
+                >
+              </div>
+              <textarea id="contentInput" spellcheck="false"></textarea>
+            </label>
+
+            <div class="editor-actions">
+              <button class="btn btn-primary" type="submit">Lưu</button>
+              <button id="copyContentBtn" class="btn btn-secondary" type="button">
+                Sao chép nội dung
+              </button>
+              <button id="copyRecordBtn" class="btn btn-secondary" type="button">
+                Sao chép JSON
+              </button>
+              <button id="deleteBtn" class="btn btn-danger" type="button">Xoá</button>
+              <button id="resetBtn" class="btn btn-ghost" type="button">Làm mới</button>
+            </div>
+          </form>
+        </aside>
+      </main>
+
+      <footer class="status-bar">
+        <span id="statusText">Sẵn sàng.</span>
+      </footer>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

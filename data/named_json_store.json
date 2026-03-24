@@ -1,0 +1,29 @@
+[
+  {
+    "id": "seed-json-1",
+    "name": "cau-hinh-api",
+    "content_type": "json",
+    "content": {
+      "baseUrl": "https://example.local/api",
+      "timeout": 5000,
+      "retry": 2
+    },
+    "updated_at": 1742800000000
+  },
+  {
+    "id": "seed-json-2",
+    "name": "danh-sach-thong-bao",
+    "content_type": "list",
+    "content": [
+      {
+        "id": 1,
+        "title": "Xin chao"
+      },
+      {
+        "id": 2,
+        "title": "Tam biet"
+      }
+    ],
+    "updated_at": 1742800001000
+  }
+]
