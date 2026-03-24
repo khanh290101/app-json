@@ -3,16 +3,32 @@ rules_version='2'
 service cloud.firestore {
   match /databases/{database}/documents {
     match /named_json_store/{documentId} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2026, 4, 23);
+      allow read: if true;
+      allow create, update: if isValidNamedJsonStore();
+      allow delete: if true;
+    }
+
+    function isValidNamedJsonStore() {
+      return request.resource.data.keys().hasOnly([
+          "name",
+          "content_type",
+          "content",
+          "updated_at"
+        ]) &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
+        request.resource.data.name.size() <= 120 &&
+        request.resource.data.updated_at is number &&
+        (
+          (
+            request.resource.data.content_type == "json" &&
+            request.resource.data.content is map
+          ) ||
+          (
+            request.resource.data.content_type == "list" &&
+            request.resource.data.content is list
+          )
+        );
     }
   }
 }
